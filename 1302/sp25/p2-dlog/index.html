@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="https://tinman.cs.gsu.edu/~raj/my.css">
+<title>CSc 1302 Honors Lab - Spring 2024</title>
+</head>
+
+<body>
+
+<div id="page">
+<div id="main-col">
+
+<div class="section">
+<h3>Programming Assignment 2 (Datalog)</h3>
+
+<P>
+Write a Python program to compute a Relational Algebra expression corresponding
+to an atomic formula in Datalog. Here are some sample atomic formulas from Datalog:
+<pre>
+employee("jones",20,x,y,"john",x,y,x,x,z)
+p(x,x,x,x,x)
+p(x,20,x,y,"john",x,y)
+student(x,y,z)
+</pre>
+As can be seen, an atomic formula in Datalog begins with a NAME token 
+(denoting the relation name) followed by 
+a left parenthesis (LPAREN), followed by a list of arguments 
+(we will have at least one argument)
+and ends with a right parenthesis (RPAREN). The list of arguments is COMMA separated
+and each of argument can be either a NUMBER constant (assume positive integers) or 
+a STRING constant, or a NAME corresponding to a variable.
+<P>
+A sample run of the final program on a Terminal is shown below (user input
+is shown in <font color="red">RED</font>):
+<pre>
+<b>macbook-pro:dlog raj$</b> <font color="red">python3 DLOG.py</font>
+
+<b>DLG:</b> <font color="red">employee("jones",20,x,y,"john",x,y,x,x,z)</font>
+rename[x,y,z](project[x_2,x_3,x_9](select[x_0="jones" and x_1=20 and x_4="john" and x_2=x_5 and x_5=x_7 and x_7=x_8 and x_3=x_6](rename[x_0,x_1,x_2,x_3,x_4,x_5,x_6,x_7,x_8,x_9](employee))))
+
+<b>DLG:</b> <font color="red">p(x,x,x,x,x)</font>
+rename[x](project[x_0](select[x_0=x_1 and x_1=x_2 and x_2=x_3 and x_3=x_4](rename[x_0,x_1,x_2,x_3,x_4](p))))
+
+<b>DLG:</b> <font color="red">p(x,20,x,y,"john",x,y)</font>
+rename[x,y](project[x_0,x_3](select[x_1=20 and x_4="john" and x_0=x_2 and x_2=x_5 and x_3=x_6](rename[x_0,x_1,x_2,x_3,x_4,x_5,x_6](p))))
+
+<b>DLG:</b> <font color="red">student(x,y,z)</font>
+rename[x,y,z](student)
+
+<b>DLG:</b> <font color="red">exit</font>
+</pre>
+<P>The conversion from Datalog atom to Relational Algebra string works as follows
+(described in an inside-out manner, with p(x,20,x,y,"john",x,y) as an example):
+<ol>
+<li> First produce a list of variables, x_0, ..., x_n-1, where n is the number of
+arguments in the Datalog atom and generate the following string:
+<pre>
+rename[x_0,x_1,x_2,x_3,x_4,x_5,x_6](p)
+</pre>
+<li> Next, generate the select conditions; There are two types of select conditions:
+one that correspond to the numeric or string constants in the Datalog atom and the
+other that correspond to repeated variable arguments in the Datalog atom. Combine
+all of the conditions with "and" and generate the following string:
+<pre>
+select[x_1=20 and x_4="john" and x_0=x_2 and x_2=x_5 and x_3=x_6](rename[x_0,x_1,x_2,x_3,x_4,x_5,x_6](p))
+</pre>
+As you can see, there are two conditions that correspond to the constant arguments
+of the atom, two conditions to ensure that the 3 instances of variable x are 
+equated and one condition to ensure that the 2 instances of the variable y are equated.
+Notice that this string builds on the string generated in the previous step.
+<li> Next, generate the project list; this list consists of the unique 
+variables in the Datalog atom (in this case the unique variables are x and y); 
+Generate the following string, again building on the previous string:
+<pre>
+project[x_0,x_3](select[x_1=20 and x_4="john" and x_0=x_2 and x_2=x_5 and x_3=x_6](rename[x_0,x_1,x_2,x_3,x_4,x_5,x_6](p)))
+</pre>
+<li> In the final step, produce the rename list of unique variables from the original
+names of variables and generate the final string:
+<pre>
+rename[x,y](project[x_0,x_3](select[x_1=20 and x_4="john" and x_0=x_2 and x_2=x_5 and x_3=x_6](rename[x_0,x_1,x_2,x_3,x_4,x_5,x_6](p))))
+</pre>
+</ol>
+Notice that in the final example, student(x,y,z), there are no constant arguments
+and no repeated variables resulting in an empty select condition.
+In this case produce only the final rename part as shown in the sample run. This is
+a special case and can be handled at the end.
+<P>
+
+<h4>PURELY FUNCTIONAL CODE!</h4>
+The functions should be coded in a "purely" functional style with the use of: 
+<P>
+<ol>
+<li> conditional expressions,
+<li> list comprehensions, 
+<li> map/filter/reduce,
+<li> useful functions such as zip(), list(), sorted(), and 
+<li> useful String methods such as join().
+</ol>
+You must not use any kind of loop-, if-, if-else-, if-elif-else- statements.
+<P>
+The code should be a sequence of assignment statements, where the variables on
+the left-hand side of the assignment is used only to "name" an expression.
+<P>
+Here is a template of the code you should use. Complete the implementation of
+the functions <tt>convert2ra</tt> and <tt>parseF</tt>.
+<pre>
+$ more DLOG.py
+# takes in as input a pair rname_args = (rname,args): 
+#   rname is the relation name and 
+#   args is a list of arguments of the form ("str",val) or ("num",val) or ("var",val)
+#     where val is one of it's arguments 
+# and returns the relational algebra string corresponding to rname and args.
+def convert2ra(rname_args):
+  pass
+  return result
+
+# takes as input the input string, parses for it's different components and returns
+# relation name and a list of arguments as describe above.
+def parseF(data):
+  pass
+  return rname, arguments
+
+# main function
+def main():
+  while True:
+    data = input('\nDLGAtom: ').strip() 
+    if data == 'exit':
+      break
+    print(convert2ra(parseF(data)))
+ 
+main()
+</pre>
+
+
+<h4>What to submit?</h4>
+<tt>DLOG.py</tt>
+
+</div>
+</div>
+   
+</body>
+</html>

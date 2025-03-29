@@ -1,0 +1,182 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://tinman.cs.gsu.edu/~raj/my.css">
+<title>CSC 1302 Honors Principles of Computer Science II - Spring 2025</title>
+</head>
+
+<body>
+
+
+<div id="page">
+<div id="main-col">
+
+<div class="section">
+<h3>Sample Runs of Driver Programs</h3>
+
+<pre>
+ASCSC1PP629W1:solution raj$ <font color="red">python3 Driver1_setup.py</font>
+Database Schema: 
+
+STUDENT(SID:INTEGER,SNAME:VARCHAR,MAJOR:VARCHAR,GPA:DECIMAL)
+COURSE(CNUM:VARCHAR,CTITLE:VARCHAR,DESCRIPTION:VARCHAR,CREDITS:INTEGER)
+
+
+Relation r1: 
+STUDENT(SID:INTEGER,SNAME:VARCHAR,MAJOR:VARCHAR,GPA:DECIMAL)
+Number of tuples:2
+
+1111:Robert Adams:Computer Science:4.0:
+1112:Charles Bailey:Mathematics:3.0:
+
+Relation r2: 
+COURSE(CNUM:VARCHAR,CTITLE:VARCHAR,DESCRIPTION:VARCHAR,CREDITS:INTEGER)
+Number of tuples:2
+
+CSC 1301:Intro to CS I:Java Programming and breadth topics:4:
+CSC 1302:Intro to CS II:In depth Java Programming and some breadth topics:4:
+
+ASCSC1PP629W1:solution raj$ <font color="red">python3 Driver2_initializeDB.py drinks</font>
+BAR(BNAME:VARCHAR)
+Number of tuples:4
+
+Jillians:
+Dugans:
+ESPN Zone:
+Charlies:
+
+DRINKER(DNAME:VARCHAR)
+Number of tuples:5
+
+John:
+Peter:
+Donald:
+Jeremy:
+Clark:
+
+BEER(RNAME:VARCHAR)
+Number of tuples:5
+
+Bud:
+Michelob:
+Fosters:
+Heineken:
+Kingfisher:
+
+FREQUENTS(DNAME:VARCHAR,BNAME:VARCHAR)
+Number of tuples:10
+
+John:Jillians:
+John:Dugans:
+Peter:ESPN Zone:
+Peter:Dugans:
+Donald:Dugans:
+Donald:ESPN Zone:
+Jeremy:Jillians:
+Jeremy:Dugans:
+Clark:ESPN Zone:
+Clark:Charlies:
+
+LIKES(DNAME:VARCHAR,RNAME:VARCHAR)
+Number of tuples:13
+
+John:Bud:
+John:Fosters:
+John:Heineken:
+Peter:Bud:
+Donald:Bud:
+Donald:Michelob:
+Donald:Fosters:
+Donald:Heineken:
+Jeremy:Bud:
+Jeremy:Fosters:
+Jeremy:Heineken:
+Clark:Bud:
+Clark:Michelob:
+
+SERVES(BNAME:VARCHAR,RNAME:VARCHAR,PRICE:INTEGER)
+Number of tuples:9
+
+Jillians:Bud:9:
+Jillians:Michelob:12:
+Jillians:Heineken:15:
+Dugans:Bud:10:
+Dugans:Michelob:10:
+Dugans:Fosters:7:
+ESPN Zone:Fosters:7:
+Charlies:Heineken:15:
+Charlies:Foster:8:
+
+ASCSC1PP629W1:solution raj$ <font color="red">python3 Driver3_removeDuplicates.py</font>
+Before Removing Duplicates: 
+STUDENT(SID:INTEGER,SNAME:VARCHAR)
+Number of tuples:7
+
+1111:Robert Adams:
+1112:Charles Bailey:
+1113:Donald James:
+1112:Charles Bailey:
+1112:Charles Bailey:
+1114:Michael James:
+1113:Donald James:
+
+After Removing Duplicates: 
+STUDENT(SID:INTEGER,SNAME:VARCHAR)
+Number of tuples:4
+
+1111:Robert Adams:
+1112:Charles Bailey:
+1113:Donald James:
+1114:Michael James:
+
+ASCSC1PP629W1:solution raj$ <font color="red">python3 Driver4_unionintersectdifference.py </font>
+REL1(COL1:INTEGER,COL2:VARCHAR)
+Number of tuples:5
+
+1111:Robert Adams:
+1112:Charles Bailey:
+1114:Richard Johnson:
+1115:Graham Gooch:
+1116:John Miller:
+
+REL2(COL1:INTEGER,COL2:VARCHAR)
+Number of tuples:5
+
+1113:John Smith:
+1112:Charles Bailey:
+1115:Graham Gooch:
+1116:John Miller:
+1117:Hugh Howell:
+
+REL1_UNION_REL2(COL1:INTEGER,COL2:VARCHAR)
+Number of tuples:7
+
+1111:Robert Adams:
+1112:Charles Bailey:
+1114:Richard Johnson:
+1115:Graham Gooch:
+1116:John Miller:
+1113:John Smith:
+1117:Hugh Howell:
+
+REL1_INTERSECT_REL2(COL1:INTEGER,COL2:VARCHAR)
+Number of tuples:3
+
+1112:Charles Bailey:
+1115:Graham Gooch:
+1116:John Miller:
+
+REL1_MINUS_REL2(COL1:INTEGER,COL2:VARCHAR)
+Number of tuples:2
+
+1111:Robert Adams:
+1114:Richard Johnson:
+
+ASCSC1PP629W1:solution raj$
+</pre>
+</div>
+
+</div>
+</div>
+   
+</body>
+</html>

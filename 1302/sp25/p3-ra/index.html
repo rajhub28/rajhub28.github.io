@@ -1,0 +1,90 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://tinman.cs.gsu.edu/~raj/my.css">
+<title>CSC 1302 Honors Principles of Computer Science II - Spring 2025</title>
+</head>
+
+<body>
+
+
+<div id="page">
+<div id="main-col">
+
+<div class="section">
+<h2>Programming Assignment 3 (Relational Database and Algebra)</h2>
+</div>
+
+<div class="section">
+<h3>Database, Relation, Tuple Classes</h3>
+
+<div style="height: 600px">
+     <img src="./db1302.jpg" alt=" " style="width: 100%;max-height: 100%" />
+</div>
+
+<!--a href="./db1302.jpg">Sample Database Instance</a-->
+<P><b>Database Class</b>: Encapsulates the entire database, which is nothing but a
+collection of relations (or tables). We shall use a dictionary to store the
+relations with relation name serving as the key and the Relation object as
+the value. 
+<pre>
+class Database:
+
+	def __init__(self):
+		self.relations = {}
+
+</pre>
+
+<P><b>Relation Class</b>: Encapsulates a relation or table; includes both schema and instance. 
+<pre>
+class Relation:
+
+	def __init__(self,name,attributes):
+                self.name = name.upper() # name of relation
+                self.attributes = attributes # list of (aname,atype) pairs, 
+                                             # aname: attribute name, atype: "INTEGER", "DECIMAL", or "VARCHAR"
+                self.table = [] # list of tuple objects
+</pre>
+
+<P><b>Tuple Class</b>: Encapsulates a tuple or row of a relation; includes both schema 
+and instance.
+<pre>
+class Tuple:
+	def __init__(self,attributes):
+		self.attributes = attributes
+		self.tuple = []
+</pre>
+</div>
+
+<div class="section">
+<h3>TO DO</h3>
+
+<P>Download the <a href="files/">Skeleton files</a> (<a href="./files.zip">files.zip</a>)
+and implement all the methods in these
+Python classes. Compile and run the four driver programs.
+Sample runs of the Driver programs are shown in <a href="./runs.html">runs.html</a>.
+</div>
+
+<div class="section">
+<h3>What to Submit?</h3>
+
+A zip or tar archive, <tt>ra.zip</tt> or <tt> ra.tar</tt> containing all files and directories as
+shown below:
+<pre>
+$ ls
+Database.py				Driver1_setup.py
+Driver2_initializeDB.py			Driver3_removeDuplicates.py
+Driver4_unionintersectdifference.py	Relation.py
+Tuple.py				drinks
+$
+$ ls drinks
+BAR.dat		DRINKER.dat	LIKES.dat	catalog.dat
+BEER.dat	FREQUENTS.dat	SERVES.dat
+$ 
+</pre>
+</div>
+
+</div>
+</div>
+   
+</body>
+</html>

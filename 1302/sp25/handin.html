@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="https://tinman.cs.gsu.edu/~raj/my.css">
+<title>CSC 1302 - Principles of Computer Science II Honors Lab</title>
+</head>
+
+<body>
+
+
+<div id="page">
+<div id="main-col">
+
+<div class="section">
+<h3>CSc 1302, Spring 2025, Handin Instructions</h3>
+To submit your programs, you will perform the following two steps:
+<ol>
+<li> <b>STEP 1:</b>
+Transfer your files from you local computer/laptop to your account on
+the tinman.cs.gsu.edu server.
+<!-- This can be done using a file transfer protocol (ftp) 
+client software such as <a href="https://filezilla-project.org/">Filezilla</a>.
+Make sure you download and install the FileZilla Client. Also, please use port 22 when
+connecting to the server.
+<P--> To transfer your files from your local computer to your account on the server perform the following steps:
+<P>
+Open a Terminal/Powershell Window.
+cd into the folder containing the files you want to submit. Then,
+type the following command (replace userid with your campusid):
+<pre>
+sftp userid@tinman.cs.gsu.edu
+</pre>
+you will be asked for your password; type it in (you may have to say "yes" to a question before password).
+once you see the sftp prompt, transfer the file as follows:
+<pre>
+put file1.py
+</pre>
+Then, make sure you exit the sftp program:
+<pre>
+exit
+</pre>
+
+<P>
+<li> <b>STEP 2:</b>
+On the Terminal or Powershell window on your local computer/laptop, 
+you will connect to the tinman.cs.gsu.edu server using the following command:
+<pre>
+ssh userid@tinman.cs.gsu.edu
+</pre>
+You will be prompted for your account's password on tinman server, 
+which you should provide. You should navigate (cd) to the proper folder on the server within
+your home directory containing the program files that were transferred in Step 1. 
+From here, you can submit all files using the following command:
+<pre>
+sudo handin1302 1 file1.py file2.py file3.pdf file4.txt
+</pre>
+<P>
+This will prompt you for your tinman password. You should see one SUCCESS message 
+for each file you submit.
+Resubmissions are allowed under the same file name and the handin script will ask 
+you whether you want to overwrite the old submission file.
+<P>
+NOTE: The 1 in the command refers to the assignment number. For assignment 2, this 
+should be 2, and so on.
+</ol>
+<P> You may use the following command to "view" all your submissions for a 
+particular assignment on the server:
+<pre>
+$ sudo handin1302 -list 1
+</pre>
+where the 1 in the command is the assignment number. This can be replaced by other
+assignment numbers.
+</div>
+Sometimes the file transfer and ssh commands may not work if you are
+connecting from outside the GSU network. If you encounter such a situation,
+you should connect to Cisco VPN (<a href="https://technology.gsu.edu/technology-services/cybersecurity/virtual-private-network/">GSU VPN Download</a>) and then retry sftp and ssh steps.
+
+</div>
+</div>
+
+</body>
+</html>

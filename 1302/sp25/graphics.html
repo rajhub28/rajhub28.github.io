@@ -1,0 +1,732 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.10">
+<title>Zelle Graphics Reference</title>
+<link rel="stylesheet" href="style/cs21.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body class="article toc2 toc-left">
+<div id="header">
+<h1>Zelle Graphics Reference</h1>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_overview">Overview</a></li>
+<li><a href="#_graphwin">GraphWin</a></li>
+<li><a href="#_common_methods">Common Methods</a></li>
+<li><a href="#_point">Point</a></li>
+<li><a href="#_line">Line</a></li>
+<li><a href="#_rectangle">Rectangle</a></li>
+<li><a href="#_circle">Circle</a></li>
+<li><a href="#_oval">Oval</a></li>
+<li><a href="#_polygon">Polygon</a></li>
+<li><a href="#_text">Text</a></li>
+<li><a href="#_entry">Entry</a></li>
+<li><a href="#_colors">Colors</a></li>
+<li><a href="#_other_references">Other References</a></li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_overview">Overview</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To use the graphics library, first import it at the top of your program:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python"><span></span><span class="tok-kn">from</span> <span class="tok-nn">graphics</span> <span class="tok-kn">import</span> <span class="tok-o">*</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here is a short example showing how to create a new graphics window object and then create gui objects to draw into this window:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python"><span></span><span class="tok-n">win</span> <span class="tok-o">=</span> <span class="tok-n">GraphWin</span><span class="tok-p">(</span><span class="tok-s2">&quot;Graphics!!!!!!&quot;</span><span class="tok-p">,</span> <span class="tok-mi">500</span><span class="tok-p">,</span> <span class="tok-mi">500</span><span class="tok-p">)</span>   <span class="tok-c1"># create new GraphWin object, 500x500 pixels in size</span>
+<span class="tok-n">win</span><span class="tok-o">.</span><span class="tok-n">setBackground</span><span class="tok-p">(</span><span class="tok-s2">&quot;blue&quot;</span><span class="tok-p">)</span>                    <span class="tok-c1"># set the background color to blue</span>
+
+<span class="tok-n">cp</span> <span class="tok-o">=</span> <span class="tok-n">Point</span><span class="tok-p">(</span><span class="tok-mi">50</span><span class="tok-p">,</span><span class="tok-mi">50</span><span class="tok-p">)</span>          <span class="tok-c1"># creates a new Point object at 50,50</span>
+<span class="tok-n">circ</span> <span class="tok-o">=</span> <span class="tok-n">Circle</span><span class="tok-p">(</span><span class="tok-n">cp</span><span class="tok-p">,</span> <span class="tok-mi">20</span><span class="tok-p">)</span>      <span class="tok-c1"># creates new Circle object centered at point cp with a radius of 20 pixels</span>
+<span class="tok-n">circ</span><span class="tok-o">.</span><span class="tok-n">setFill</span><span class="tok-p">(</span><span class="tok-s2">&quot;red&quot;</span><span class="tok-p">)</span>        <span class="tok-c1"># invoke the setFill method of the Circle object referred to by circ</span>
+<span class="tok-n">circ</span><span class="tok-o">.</span><span class="tok-n">draw</span><span class="tok-p">(</span><span class="tok-n">win</span><span class="tok-p">)</span>             <span class="tok-c1"># draw the circ object to the GraphWin win</span>
+<span class="tok-n">win</span><span class="tok-o">.</span><span class="tok-n">getMouse</span><span class="tok-p">()</span>             <span class="tok-c1"># wait for user to click mouse</span>
+<span class="tok-n">win</span><span class="tok-o">.</span><span class="tok-n">close</span><span class="tok-p">()</span>                <span class="tok-c1"># close window</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_graphwin">GraphWin</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_graphwintitle_width_height">GraphWin(title, width, height)</h3>
+<div class="paragraph">
+<p>Creates and returns a new <code>GraphWin</code> object of given <code>width</code> and <code>height</code> in pixels. The provided <code>title</code> string will appear at the top of the window.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_getwidth">getWidth()</h3>
+<div class="paragraph">
+<p>Returns the width of the <code>GraphWin</code> object in pixels</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_getheight">getHeight()</h3>
+<div class="paragraph">
+<p>Returns the height of the <code>GraphWin</code> object in pixels</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_setbackgroundcolor">setBackground(color)</h3>
+<div class="paragraph">
+<p>Sets the fill color of the object to <code>color</code>. The <code>color</code> can be specified as a <a href="https://wiki.tcl-lang.org/page/Colors+with+Names">Tcl/Tk color string</a>, or a <code>color_rgb(r,g,b)</code> triple. See the section on <a href="#_colors">Colors</a> for more details on specifying colors.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_getmouse">getMouse()</h3>
+<div class="paragraph">
+<p>Waits until the user clicks in the <code>GraphWin</code> object and returns a new <code>Point</code> object containing the coordinates of the mouse click location.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_setcoordsxll_yll_xur_yur">setCoords(xll, yll, xur, yur)</h3>
+<div class="paragraph">
+<p>Sets the coordinate system of the current graphics window to have a lower left corner at <code>(x,y) = (xll, yll)</code> and an upper right corner of <code>(x,y) = (xur, yur)</code>. For example,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python"><span></span><span class="tok-n">win</span> <span class="tok-o">=</span> <span class="tok-n">GraphWin</span><span class="tok-p">(</span><span class="tok-s2">&quot;test&quot;</span><span class="tok-p">,</span> <span class="tok-mi">500</span><span class="tok-p">,</span> <span class="tok-mi">500</span><span class="tok-p">)</span>
+<span class="tok-n">win</span><span class="tok-o">.</span><span class="tok-n">setCoords</span><span class="tok-p">(</span><span class="tok-mi">0</span><span class="tok-p">,</span><span class="tok-mi">0</span><span class="tok-p">,</span><span class="tok-mi">1</span><span class="tok-p">,</span><span class="tok-mi">1</span><span class="tok-p">)</span>
+<span class="tok-c1">#With these setCoords, the circle will appear in the middle</span>
+<span class="tok-c1">#of the screen and touch the sides of the window.</span>
+<span class="tok-n">circ</span> <span class="tok-o">=</span> <span class="tok-n">Circle</span><span class="tok-p">(</span><span class="tok-n">Point</span><span class="tok-p">(</span><span class="tok-mf">0.5</span><span class="tok-p">,</span><span class="tok-mf">0.5</span><span class="tok-p">),</span> <span class="tok-mf">0.5</span><span class="tok-p">)</span>
+<span class="tok-n">circ</span><span class="tok-o">.</span><span class="tok-n">draw</span><span class="tok-p">(</span><span class="tok-n">win</span><span class="tok-p">)</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_close">close()</h3>
+<div class="paragraph">
+<p>Closes the <code>GraphWin</code> object. Attempting to draw to a closed <code>GraphWin</code> object is an error.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_getkey">getKey()</h3>
+<div class="paragraph">
+<p>Waits until the user presses a key on the keyboard and returns a string representing the pressed key.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_checkkey">checkKey()</h3>
+<div class="paragraph">
+<p>Similar to <code>getKey</code>, but does not wait until a user presses a key. If the user is currently pressing a key, <code>checkKey</code> immediately returns a string representing the pressed key. Otherwise, <code>checkKey</code> returns an empty string <code>""</code>. This method is primarily used in interactive applications where <code>checkKey</code> appears in a <code>while</code> loop.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_checkmouse">checkMouse()</h3>
+<div class="paragraph">
+<p>Similar to <code>getMouse</code>, but does not wait until a user clicks. If the user is currently holding the mouse button down, <code>checkMouse</code> immediately returns a new <code>Point</code> object containing the coordinates of the mouse click location. Otherwise, <code>checkMouse</code> returns the special value <code>None</code>. This method is primarily used in interactive applications where <code>checkMouse</code> appears in a <code>while</code> loop.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_common_methods">Common Methods</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The geometry objects listed below (Point,Line,Rectangle,Circle,Oval,and Polygon) all support a set of common methods which are described once here.</p>
+</div>
+<div class="sect2">
+<h3 id="_drawwin">draw(win)</h3>
+<div class="paragraph">
+<p>Draws the corresponding graphics object in the <code>GraphWin</code> object <code>win</code>. Calling draw twice on the same object results in an error, unless the object is currently undrawn.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_undraw">undraw()</h3>
+<div class="paragraph">
+<p>Undraws or hide sthe object from its current <code>GraphWin</code> object. It is legal to call <code>undraw()</code> on an undrawn object. Nothing happens.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_setfillcolor">setFill(color)</h3>
+<div class="paragraph">
+<p>Sets the fill color of the object to <code>color</code>. The <code>color</code> can be specified as a <a href="https://wiki.tcl-lang.org/page/Colors+with+Names">Tcl/Tk color string</a>, or a <code>color_rgb(r,g,b)</code> triple.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python"><span></span><span class="tok-n">win</span> <span class="tok-o">=</span> <span class="tok-n">GraphWin</span><span class="tok-p">(</span><span class="tok-s2">&quot;Test&quot;</span><span class="tok-p">,</span> <span class="tok-mi">500</span><span class="tok-p">,</span> <span class="tok-mi">500</span><span class="tok-p">)</span>
+<span class="tok-n">circ</span> <span class="tok-o">=</span> <span class="tok-n">Circle</span><span class="tok-p">(</span><span class="tok-n">Point</span><span class="tok-p">(</span><span class="tok-mi">50</span><span class="tok-p">,</span><span class="tok-mi">50</span><span class="tok-p">),</span> <span class="tok-mi">20</span><span class="tok-p">)</span>
+<span class="tok-n">circ</span><span class="tok-o">.</span><span class="tok-n">setFill</span><span class="tok-p">(</span><span class="tok-s2">&quot;lawn green&quot;</span><span class="tok-p">)</span>
+<span class="tok-n">circ</span><span class="tok-o">.</span><span class="tok-n">setOutline</span><span class="tok-p">(</span><span class="tok-n">color_rgb</span><span class="tok-p">(</span><span class="tok-mi">200</span><span class="tok-p">,</span><span class="tok-mi">0</span><span class="tok-p">,</span><span class="tok-mi">200</span><span class="tok-p">))</span> <span class="tok-c1">#purplish</span>
+<span class="tok-n">circ</span><span class="tok-o">.</span><span class="tok-n">setWidth</span><span class="tok-p">(</span><span class="tok-mi">10</span><span class="tok-p">)</span>
+<span class="tok-n">circ</span><span class="tok-o">.</span><span class="tok-n">draw</span><span class="tok-p">(</span><span class="tok-n">win</span><span class="tok-p">)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>See the section on <a href="#_colors">Colors</a> for more details on specifying colors.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_setoutlinecolor">setOutline(color)</h3>
+<div class="paragraph">
+<p>Sets the outline color of the object to <code>color</code>. Default color is black. In many applications, you may want to set the outline to be the same color as the fill color to avoid appearance of seams between adjacent shapes of the same color.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_setwidthwidth">setWidth(width)</h3>
+<div class="paragraph">
+<p>Changes the width of the outline of the object to <code>width</code> pixels. Note that <code>setWidth</code> causes an error when used on <code>Point</code> objects, even though <code>setOutline</code> does not.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_movedxdy">move(dx,dy)</h3>
+<div class="paragraph">
+<p>Moves the object <code>dx</code> units in the \$x\$ direction: and <code>dy</code> units in the \$y\$ direction. If the object is drawn, the move takes effect immediately.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_clone">clone()</h3>
+<div class="paragraph">
+<p>Makes and returns a copy of the object with the same properties (geometry, color, width, etc.), but in an undrawn state. Use this to manipulate multiple copies of similar objects.</p>
+</div>
+<div class="listingblock">
+<div class="title">This snippet will not move two shapes. Instead <code>shape2</code> and <code>shape</code> refer to the same object in problem known as <em>aliasing</em></div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python"><span></span><span class="tok-n">shape2</span> <span class="tok-o">=</span> <span class="tok-n">shape</span>
+<span class="tok-n">shape2</span><span class="tok-o">.</span><span class="tok-n">setFill</span><span class="tok-p">(</span><span class="tok-s2">&quot;blue&quot;</span><span class="tok-p">)</span>
+<span class="tok-n">shape2</span><span class="tok-o">.</span><span class="tok-n">move</span><span class="tok-p">(</span><span class="tok-mi">10</span><span class="tok-p">,</span><span class="tok-mi">10</span><span class="tok-p">)</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">This snippet uses clone to make a copy of <code>shape</code> that can manipulated independently. Don&#8217;t forget to draw the new shape.</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python"><span></span><span class="tok-n">shape2</span> <span class="tok-o">=</span> <span class="tok-n">shape</span><span class="tok-o">.</span><span class="tok-n">clone</span><span class="tok-p">()</span>
+<span class="tok-n">shape2</span><span class="tok-o">.</span><span class="tok-n">setFill</span><span class="tok-p">(</span><span class="tok-s2">&quot;blue&quot;</span><span class="tok-p">)</span>
+<span class="tok-n">shape2</span><span class="tok-o">.</span><span class="tok-n">move</span><span class="tok-p">(</span><span class="tok-mi">10</span><span class="tok-p">,</span><span class="tok-mi">10</span><span class="tok-p">)</span>
+<span class="tok-n">shape2</span><span class="tok-o">.</span><span class="tok-n">draw</span><span class="tok-p">(</span><span class="tok-n">win</span><span class="tok-p">)</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_point">Point</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_pointxy">Point(x,y)</h3>
+<div class="paragraph">
+<p>Constructs and returns a new point object at location <code>(x,y)</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_getx">getX()</h3>
+<div class="paragraph">
+<p>Returns value of \$x\$ coordinate of point.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_gety">getY()</h3>
+<div class="paragraph">
+<p>Returns value of \$y\$ coordinate of point.</p>
+</div>
+<div class="paragraph">
+<p>See also the <a href="#_common_methods">Common Methods</a> for all geometry types.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_point_example"><code>Point()</code> Example</h3>
+<div class="paragraph">
+<p>Assuming we already have a graphics window object <code>win</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python"><span></span><span class="tok-n">p1</span> <span class="tok-o">=</span> <span class="tok-n">Point</span><span class="tok-p">(</span><span class="tok-mi">300</span><span class="tok-p">,</span> <span class="tok-mi">450</span><span class="tok-p">)</span>
+<span class="tok-n">p1</span><span class="tok-o">.</span><span class="tok-n">draw</span><span class="tok-p">(</span><span class="tok-n">win</span><span class="tok-p">)</span>
+<span class="tok-n">x1</span> <span class="tok-o">=</span> <span class="tok-n">p1</span><span class="tok-o">.</span><span class="tok-n">getX</span><span class="tok-p">()</span>
+<span class="tok-n">x2</span> <span class="tok-o">=</span> <span class="tok-n">p1</span><span class="tok-o">.</span><span class="tok-n">getY</span><span class="tok-p">()</span>
+<span class="tok-k">print</span><span class="tok-p">(</span><span class="tok-n">x1</span><span class="tok-p">,</span><span class="tok-n">x2</span><span class="tok-p">)</span>      <span class="tok-c1"># would just print 300 450</span>
+<span class="tok-n">p2</span> <span class="tok-o">=</span> <span class="tok-n">p1</span><span class="tok-o">.</span><span class="tok-n">clone</span><span class="tok-p">()</span>   <span class="tok-c1"># make a copy of Point p1</span>
+<span class="tok-n">p2</span><span class="tok-o">.</span><span class="tok-n">move</span><span class="tok-p">(</span><span class="tok-mi">100</span><span class="tok-p">,</span><span class="tok-mi">20</span><span class="tok-p">)</span>   <span class="tok-c1"># move it</span>
+<span class="tok-n">p2</span><span class="tok-o">.</span><span class="tok-n">draw</span><span class="tok-p">(</span><span class="tok-n">win</span><span class="tok-p">)</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_line">Line</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_linep1_p2">Line(p1, p2)</h3>
+<div class="paragraph">
+<p>Constructs and returns a new Line object between two <a href="#_point">Point</a> objects <code>p1</code> and <code>p2</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_getp1">getP1()</h3>
+<div class="paragraph">
+<p>Returns a <a href="#_point">Point</a> object representing the first endpoint of the line, <code>p1</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_getp2">getP2()</h3>
+<div class="paragraph">
+<p>Returns a <a href="#_point">Point</a> object representing the second endpoint of the line, <code>p2</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_getcenter">getCenter()</h3>
+<div class="paragraph">
+<p>Returns a <a href="#_point">Point</a> object located on the line halfway between its enpoints <code>p1</code> and `p2.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_setarrowoption">setArrow(option)</h3>
+<div class="paragraph">
+<p>Adds an optional arrowhead to either end of the line. The <code>option</code> value can be the string <code>"first"</code>,<code>"last"</code>, <code>"both"</code>, or <code>"none"</code>. Does not return anything.</p>
+</div>
+<div class="paragraph">
+<p>See also the <a href="#_common_methods">Common Methods</a> for all geometry types.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_line_example"><code>Line()</code> Example</h3>
+<div class="paragraph">
+<p>Assuming we already have a graphics window object <code>win</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python"><span></span><span class="tok-n">p1</span> <span class="tok-o">=</span> <span class="tok-n">Point</span><span class="tok-p">(</span><span class="tok-mi">0</span><span class="tok-p">,</span> <span class="tok-mi">250</span><span class="tok-p">)</span>
+<span class="tok-n">p2</span> <span class="tok-o">=</span> <span class="tok-n">Point</span><span class="tok-p">(</span><span class="tok-mi">600</span><span class="tok-p">,</span> <span class="tok-mi">250</span><span class="tok-p">)</span>
+
+<span class="tok-n">horizontal_line</span> <span class="tok-o">=</span> <span class="tok-n">Line</span><span class="tok-p">(</span><span class="tok-n">p1</span><span class="tok-p">,</span> <span class="tok-n">p2</span><span class="tok-p">)</span>
+<span class="tok-n">horizontal_line</span><span class="tok-o">.</span><span class="tok-n">setWidth</span><span class="tok-p">(</span><span class="tok-mi">5</span><span class="tok-p">)</span>
+<span class="tok-n">horizontal_line</span><span class="tok-o">.</span><span class="tok-n">draw</span><span class="tok-p">(</span><span class="tok-n">win</span><span class="tok-p">)</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_rectangle">Rectangle</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_rectanglep1_p2">Rectangle(p1, p2)</h3>
+<div class="paragraph">
+<p>Creates and return a new Rectangle object with opposite corners located at  <a href="#_point">Point</a> objects <code>p1</code> and <code>p2</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_getp1_2">getP1()</h3>
+<div class="paragraph">
+<p>Returns a <a href="#_point">Point</a> object representing the first corner of the rectangle, <code>p1</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_getp2_2">getP2()</h3>
+<div class="paragraph">
+<p>Returns a <a href="#_point">Point</a> object representing the opposite corner of the rectangle, <code>p2</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_getcenter_2">getCenter()</h3>
+<div class="paragraph">
+<p>Returns a <a href="#_point">Point</a> object located in the middle of the rectangle halfway between a line connecting opposite corners <code>p1</code> and <code>p2</code>.</p>
+</div>
+<div class="paragraph">
+<p>See also the <a href="#_common_methods">Common Methods</a> for all geometry types.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_rectangle_example"><code>Rectangle()</code> Example</h3>
+<div class="paragraph">
+<p>Assuming we already have a graphics window object <code>win</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python"><span></span><span class="tok-n">p1</span> <span class="tok-o">=</span> <span class="tok-n">Point</span><span class="tok-p">(</span><span class="tok-mi">100</span><span class="tok-p">,</span> <span class="tok-mi">100</span><span class="tok-p">)</span>
+<span class="tok-n">p2</span> <span class="tok-o">=</span> <span class="tok-n">Point</span><span class="tok-p">(</span><span class="tok-mi">200</span><span class="tok-p">,</span> <span class="tok-mi">200</span><span class="tok-p">)</span>
+
+<span class="tok-n">square</span> <span class="tok-o">=</span> <span class="tok-n">Rectangle</span><span class="tok-p">(</span><span class="tok-n">p1</span><span class="tok-p">,</span> <span class="tok-n">p2</span><span class="tok-p">)</span>
+<span class="tok-n">square</span><span class="tok-o">.</span><span class="tok-n">draw</span><span class="tok-p">(</span><span class="tok-n">win</span><span class="tok-p">)</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_circle">Circle</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_circlep1_radius">Circle(p1, radius)</h3>
+<div class="paragraph">
+<p>Creates and returns a new <code>Circle</code> object with radius <code>radius</code> and center located at <a href="#_point">point</a> <code>p1</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_getradius">getRadius()</h3>
+<div class="paragraph">
+<p>Returns the radius of the current circle.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_getcenter_3">getCenter()</h3>
+<div class="paragraph">
+<p>Returns a <a href="#_point">Point</a> object <code>p1</code> located in the center of the circle.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_getp1_3">getP1()</h3>
+<div class="paragraph">
+<p>Returns a <a href="#_point">Point</a> object representing the upper left corner of bounding box containing the circle.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_getp2_3">getP2()</h3>
+<div class="paragraph">
+<p>Returns a <a href="#_point">Point</a> object representing the lower right corner of bounding box containing the circle.</p>
+</div>
+<div class="paragraph">
+<p>See also the <a href="#_common_methods">Common Methods</a> for all geometry types.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_circle_example"><code>Circle()</code> Example</h3>
+<div class="paragraph">
+<p>Assuming we already have a graphics window object <code>win</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python"><span></span><span class="tok-n">center</span> <span class="tok-o">=</span> <span class="tok-n">Point</span><span class="tok-p">(</span><span class="tok-mi">100</span><span class="tok-p">,</span> <span class="tok-mi">100</span><span class="tok-p">)</span>
+<span class="tok-n">radius</span> <span class="tok-o">=</span> <span class="tok-mi">35</span>
+<span class="tok-n">sun</span> <span class="tok-o">=</span> <span class="tok-n">Circle</span><span class="tok-p">(</span><span class="tok-n">center</span><span class="tok-p">,</span> <span class="tok-n">radius</span><span class="tok-p">)</span>
+<span class="tok-n">sun</span><span class="tok-o">.</span><span class="tok-n">setFill</span><span class="tok-p">(</span><span class="tok-s2">&quot;yellow&quot;</span><span class="tok-p">)</span>
+<span class="tok-n">sun</span><span class="tok-o">.</span><span class="tok-n">setOutline</span><span class="tok-p">(</span><span class="tok-s2">&quot;yellow&quot;</span><span class="tok-p">)</span>
+<span class="tok-n">sun</span><span class="tok-o">.</span><span class="tok-n">draw</span><span class="tok-p">(</span><span class="tok-n">win</span><span class="tok-p">)</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_oval">Oval</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_ovalp1_p2">Oval(p1, p2)</h3>
+<div class="paragraph">
+<p>Creates and returns a new <code>Oval</code> object bounded by the bounding box defined by opposite corner <a href="#_point">points</a> <code>p1</code> and <code>p2</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_getcenter_4">getCenter()</h3>
+<div class="paragraph">
+<p>Returns a <a href="#_point">Point</a> object located in the middle of the oval halfway between a line connecting opposite corner <a href="#_point">points</a> <code>p1</code> and <code>p2</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_getp1_4">getP1()</h3>
+<div class="paragraph">
+<p>Returns a <a href="#_point">Point</a> object representing the upper left corner of bounding box containing the oval.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_getp2_4">getP2()</h3>
+<div class="paragraph">
+<p>Returns a <a href="#_point">Point</a> object representing the lower right corner of bounding box containing the oval.</p>
+</div>
+<div class="paragraph">
+<p>See also the <a href="#_common_methods">Common Methods</a> for all geometry types.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_polygon">Polygon</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_polygonp1_p2_p3">Polygon([p1, p2, p3, &#8230;&#8203;])</h3>
+<div class="paragraph">
+<p>Constructs and returns a new <code>Polygon</code> object given a list of <a href="#_point">points</a> defining the boundary vertices of the polygon. The brackets <code>[]</code> around the point list are optional.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python"><span></span><span class="tok-c1">#fine</span>
+<span class="tok-n">tri</span> <span class="tok-o">=</span> <span class="tok-n">Polygon</span><span class="tok-p">([</span><span class="tok-n">Point</span><span class="tok-p">(</span><span class="tok-mi">0</span><span class="tok-p">,</span><span class="tok-mi">0</span><span class="tok-p">),</span> <span class="tok-n">Point</span><span class="tok-p">(</span><span class="tok-mi">50</span><span class="tok-p">,</span><span class="tok-mi">0</span><span class="tok-p">),</span> <span class="tok-n">Point</span><span class="tok-p">(</span><span class="tok-mi">50</span><span class="tok-p">,</span><span class="tok-mi">50</span><span class="tok-p">)])</span>
+
+<span class="tok-c1">#also works</span>
+<span class="tok-n">tri2</span> <span class="tok-o">=</span> <span class="tok-n">Polygon</span><span class="tok-p">(</span><span class="tok-n">Point</span><span class="tok-p">(</span><span class="tok-mi">0</span><span class="tok-p">,</span><span class="tok-mi">0</span><span class="tok-p">),</span> <span class="tok-n">Point</span><span class="tok-p">(</span><span class="tok-mi">50</span><span class="tok-p">,</span><span class="tok-mi">0</span><span class="tok-p">),</span> <span class="tok-n">Point</span><span class="tok-p">(</span><span class="tok-mi">50</span><span class="tok-p">,</span><span class="tok-mi">50</span><span class="tok-p">))</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_getpoints">getPoints()</h3>
+<div class="paragraph">
+<p>Returns a list containing all the <a href="#_point">Point</a> objects defining the boundary of the polygon.</p>
+</div>
+<div class="paragraph">
+<p>See also the <a href="#_common_methods">Common Methods</a> for all geometry types.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_text">Text</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_textptext_string">Text(p,text_string)</h3>
+<div class="paragraph">
+<p>Creates and returns a new <code>Text</code> object with center located at
+<a href="#_point">point</a> <code>p</code>. The <code>text_string</code> variable holds the text to be
+displayed.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_gettext">getText()</h3>
+<div class="paragraph">
+<p>Gets and returns the text of this Text Object as a string.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_settexttext">setText(text)</h3>
+<div class="paragraph">
+<p>Changes the text of this Text object. If the Text object is currently drawn, the
+change is seen <em>immediately</em>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_getanchor">getAnchor()</h3>
+<div class="paragraph">
+<p>Returns clone of object anchor point.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_settextcolorcolor">setTextColor(color)</h3>
+<div class="paragraph">
+<p>Sets the text color of this object.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_setfacefamily">setFace(family)</h3>
+<div class="paragraph">
+<p>Sets the font face to the value of the string <code>family</code>. Valid values of the <code>family</code> variable are: "helvetica", "arial", "courier", and "times roman"</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_setsizesize">setSize(size)</h3>
+<div class="paragraph">
+<p>Sets the font size of this object to <code>size</code>. Values from 5-72 are legal.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_setstylestyle">setStyle(style)</h3>
+<div class="paragraph">
+<p>Sets the font style to the string <code>style</code> value. Valid options are: "bold", "normal", "italic", or "bold italic".</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_text_example"><code>Text()</code> Example</h3>
+<div class="paragraph">
+<p>Assuming we already have a graphics window object <code>win</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python"><span></span><span class="tok-n">message</span> <span class="tok-o">=</span> <span class="tok-n">Text</span><span class="tok-p">(</span><span class="tok-n">Point</span><span class="tok-p">(</span><span class="tok-mi">300</span><span class="tok-p">,</span> <span class="tok-mi">100</span><span class="tok-p">),</span> <span class="tok-s2">&quot;please click anywhere to close window&quot;</span><span class="tok-p">)</span>
+<span class="tok-n">message</span><span class="tok-o">.</span><span class="tok-n">setSize</span><span class="tok-p">(</span><span class="tok-mi">24</span><span class="tok-p">)</span>
+<span class="tok-n">message</span><span class="tok-o">.</span><span class="tok-n">setTextColor</span><span class="tok-p">(</span><span class="tok-s2">&quot;red&quot;</span><span class="tok-p">)</span>
+<span class="tok-n">message</span><span class="tok-o">.</span><span class="tok-n">draw</span><span class="tok-p">(</span><span class="tok-n">win</span><span class="tok-p">)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>See also the <a href="#_common_methods">Common Methods</a> for all geometry types.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_entry">Entry</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We don&#8217;t use the Entry class much in CS21, but it provides a way to get text from the user from within the graphics window.</p>
+</div>
+<div class="sect2">
+<h3 id="_entrypwidth">Entry(p,width)</h3>
+<div class="paragraph">
+<p>Creates a rectangular text entry box centered at <a href="#_point">point</a> <code>p</code> that display <code>width</code> characters typed by the user.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_gettext_2">getText()</h3>
+<div class="paragraph">
+<p>Gets and returns the text contained in this object as a string. A user can click inside the <code>Entry</code> and change the text. <code>getText</code> will return the modified text.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_common_text_methods">Common Text methods</h3>
+<div class="paragraph">
+<p>Many methods of the <code>Entry</code> class are similar to those of the <code>Text</code> class. See the <a href="#_text">Text Documention</a> for the methods  <code>getAnchor</code>, <code>setTextColor</code>, <code>setFace</code>, <code>setSize</code>, and <code>setStyle</code>.</p>
+</div>
+<div class="paragraph">
+<p>See also the <a href="#_common_methods">Common Methods</a> for all geometry types.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_colors">Colors</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>For methods that request a color argument, you can specfify the color as a <a href="https://wiki.tcl-lang.org/page/Colors+with+Names">Tcl/Tk color string</a>, or you can use the <code>color_rgb()</code> function to create colors
+based on different amount of red, green, and blue. Here&#8217;s an example
+of how it&#8217;s used:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python"><span></span><span class="tok-n">p</span> <span class="tok-o">=</span> <span class="tok-n">Point</span><span class="tok-p">(</span><span class="tok-mi">100</span><span class="tok-p">,</span><span class="tok-mi">200</span><span class="tok-p">)</span>
+<span class="tok-n">c</span> <span class="tok-o">=</span> <span class="tok-n">Circle</span><span class="tok-p">(</span><span class="tok-n">p</span><span class="tok-p">,</span> <span class="tok-mi">50</span><span class="tok-p">)</span>
+<span class="tok-n">mycolor</span> <span class="tok-o">=</span> <span class="tok-n">color_rgb</span><span class="tok-p">(</span><span class="tok-mi">100</span><span class="tok-p">,</span><span class="tok-mi">200</span><span class="tok-p">,</span><span class="tok-mi">0</span><span class="tok-p">)</span>
+<span class="tok-n">c</span><span class="tok-o">.</span><span class="tok-n">setFill</span><span class="tok-p">(</span><span class="tok-n">mycolor</span><span class="tok-p">)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the above example, the arguments to <code>color_rgb()</code> are <strong>integers</strong>
+representing the amount of red, green, and blue. They can be any integer from
+0-255. So the above color is a bright green (red=100, green=200, blue=0).
+Using <code>color_rgb(50,50,50)</code> would give a dark grey, and
+<code>color_rgb(0,255,255)</code> would be cyan (red off, green and blue full on).</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">red</th>
+<th class="tableblock halign-left valign-top">green</th>
+<th class="tableblock halign-left valign-top">blue</th>
+<th class="tableblock halign-left valign-top">color</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">black</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">255</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">255</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">255</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">white</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">255</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">red</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">255</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">green</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">255</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">blue</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">gray</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">149</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">237</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">cornflower blue</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">50</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">205</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">50</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">lime green</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Remember to use quotes if you are specifying a color string, e.g., <code>"red"</code>, but not when you are using <code>color_rgb</code>, e.g., <code>clr = color_rgb(255,0,0)</code>.</p>
+</div>
+<div class="paragraph">
+<p>On the CS network, we provide a small interactive color picker tool</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python"><span></span><span class="tok-err">$</span> <span class="tok-n">python3</span>
+<span class="tok-o">&gt;&gt;&gt;</span> <span class="tok-kn">from</span> <span class="tok-nn">colorPicker</span> <span class="tok-kn">import</span> <span class="tok-o">*</span>
+<span class="tok-o">&gt;&gt;&gt;</span> <span class="tok-n">colorPicker</span><span class="tok-p">()</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Clicking on a color will display both the string name and <code>color_rgb</code> value in the terminal.</p>
+</div>
+<div class="paragraph">
+<p>For a wider range of RGB colors, you can use a similar <a href="https://www.w3schools.com/colors/colors_picker.asp">online color tool</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_other_references">Other References</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A <a href="https://mcsp.wartburg.edu/zelle/python/graphics/graphics.pdf">PDF version</a> of the graphic&#8217;s library documentation is available from Prof. John Zelle&#8217;s (the original author) website.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2021-07-16 14:37:01 -0400
+</div>
+</div>
+<link rel="stylesheet" href="style/pygments-default.css">
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  messageStyle: "none",
+  tex2jax: {
+    inlineMath: [["\\(", "\\)"]],
+    displayMath: [["\\[", "\\]"]],
+    ignoreClass: "nostem|nolatexmath"
+  },
+  asciimath2jax: {
+    delimiters: [["\\$", "\\$"]],
+    ignoreClass: "nostem|noasciimath"
+  },
+  TeX: { equationNumbers: { autoNumber: "none" } }
+})
+MathJax.Hub.Register.StartupHook("AsciiMath Jax Ready", function () {
+  MathJax.InputJax.AsciiMath.postfilterHooks.Add(function (data, node) {
+    if ((node = data.script.parentNode) && (node = node.parentNode) && node.classList.contains('stemblock')) {
+      data.math.root.display = "block"
+    }
+    return data
+  })
+})
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
+</body>
+</html>

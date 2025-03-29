@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="https://tinman.cs.gsu.edu/~raj/my.css">
+<title>CSc 1302 Honors Lab - Spring 2025</title>
+</head>
+
+<body>
+
+<div id="page">
+<div id="main-col">
+
+<div class="section">
+<h3>Programming Assignment 5 (Sierpinski)</h2>
+
+This assignments deals with recursive fractals/curves that will be produced by you using the 
+<a href="./graphics.py">graphics.py</a> package that we used in Assignment 1.
+Recall that the documentation for this package is available at 
+<P><a href="../graphics.html">graphics.html</a> (or 
+<a href="../zellegraphics.pdf">graphics.pdf</a> - this contains Image object).
+
+<h4>Part 1: SIERPINSKI TRIANGLES</h4>
+
+<a href="https://en.wikipedia.org/wiki/Sierpi%C5%84ski_triangle">
+Sierpinski triangles</a> may be constructed from an equilateral triangle by repeated removal of triangular subsets
+as follows:
+<ul>
+<li> Start with an equilateral triangle.
+<li> Subdivide it into four smaller congruent equilateral triangles and remove the central triangle.
+<li> Repeat step 2 with each of the remaining smaller triangles infinitely.
+</ul>
+The repetition should be programmed using recursion. Write a recursive Python program, <tt>sTriangles.py</tt>,
+that takes as command line input the number of iterations (also referred to as the depth of the
+triangles), to "draw" the Sierpinski triangle on a canvas. 
+
+<pre>
+$ python3 sTriangles.py 3
+</pre>
+should draw the Sierpinski triangles for depth 3. You must also use a coloring scheme that
+uses three colors to fill the triangles every three iterations. The following are examples
+of output of the program for various depths.
+
+<P> <a href="./sTriangle1.png">Sierpinski Triangle (depth 1)</a>
+<P> <a href="./sTriangle2.png">Sierpinski Triangle (depth 2)</a>
+<P> <a href="./sTriangle3.png">Sierpinski Triangle (depth 3)</a>
+<P> <a href="./sTriangle4.png">Sierpinski Triangle (depth 4)</a>
+<P> <a href="./sTriangle5.png">Sierpinski Triangle (depth 5)</a>
+<P> <a href="./sTriangle6.png">Sierpinski Triangle (depth 6)</a>
+
+<P> The user should be able to "click" on the canvas to terminate the program.
+
+<h4>Part 2: SIERPINSKI CURVES</h4>
+
+<a href="https://en.wikipedia.org/wiki/Sierpi%C5%84ski_curve">Sierpinski Curves</a>
+come in various sizes starting at size 0. We shall denote Seirpinski curve of size <em>i</em> 
+as S<sub>i</sub>. Sierpinski curve S<sub>i</sub> is defined in terms of four other curves: A-curves,
+B-curves, C-curves, and D-curves, each of which also comes in various sizes starting at size 0.
+A<sub>0</sub>, B<sub>0</sub>, C<sub>0</sub>, and D<sub>0</sub> are empty curves (i.e. occupy no space on the
+canvas). The rest of the curves are defined recursively as follows:
+<P><img src="./scurve-def1.png" width=200/> <img src="./scurve-def2.png" width=400/>
+<P>As can be noticed, S<sub>i</sub> is defined in terms of 
+A<sub>i</sub>, B<sub>i</sub>, C<sub>i</sub>, and D<sub>i</sub>, whereas 
+A<sub>i</sub>, B<sub>i</sub>, C<sub>i</sub>, and D<sub>i</sub> are defined in terms of each other
+mutually recursively (to make the definition work, curves of size <em>i</em> are defined in terms of
+curves of size <em>i-1</em> with a base case of size 0).
+
+<P>Write a recursive Python program, <tt>sCurves.py</tt>, that takes as command line input the 
+size of the Sierpinski curve, to "draw" the Sierpinski curve of that size on a canvas.
+<pre>
+$ python3 sCurves.py 3
+</pre>
+should draw the Sierpinski curve of size 3.
+The user should be able to "click" on the canvas to terminate the program.
+
+<P>
+Some Sierpinski curves are shown below:
+
+<P> <a href="./sCurve0.png">Sierpinski Curve (size 0)</a>
+<P> <a href="./sCurve1.png">Sierpinski Curve (size 1)</a>
+<P> <a href="./sCurve2.png">Sierpinski Curve (size 2)</a>
+<P> <a href="./sCurve3.png">Sierpinski Curve (size 3)</a>
+<P> <a href="./sCurve4.png">Sierpinski Curve (size 4)</a>
+
+<P><b>Notes on implementation:</b>
+
+<ul>
+<li> You may choose appropriate segment lengths. It appears that the horizontal and vertical segments
+are a bit longer than the other segments. Please use simple geometry/math to keep
+the proportions of the horizontal/vertical segments vs other segments appropriate.
+<li> Since the entire Sierpinski curve is a "closed" figure, you must "fill" the figure with a color
+different than the background color.
+<li> Begin drawing the Sierpinski curves by starting to draw its A-curve somewhere in the top left corner of the display. 
+Make sure to leave some space to the left and top of the starting point so that the curve does not go outside the display area.
+<li> It will be useful if you write procedures for drawing the various segments (DrawNorth, DrawSouth, DrawWest, DrawEast, DrawNorthEast, DrawNorthWest, DrawSouthEast, DrawSouthwest) and procedures for each of the five types of curves (Scurve, Acurve, Bcurve, Ccurve, Dcurve).
+</ul>
+
+<h4>What to submit?</h4>
+<P> <tt>sTriangles.py</tt> and <tt>sCurves.py</tt>.
+
+</div>
+</div>
+   
+</body>
+</html>

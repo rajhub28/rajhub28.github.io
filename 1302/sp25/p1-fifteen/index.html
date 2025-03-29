@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="https://tinman.cs.gsu.edu/~raj/my.css">
+<title>CSc 1302 Honors Lab - Spring 2024</title>
+</head>
+
+<body>
+
+<div id="page">
+<div id="main-col">
+
+<div class="section">
+<h3>Programming Assignment 1 (Fifteen Puzzle)</h2>
+
+<P> Write a Python program for the "fifteen" puzzle
+(<a href="https://en.wikipedia.org/wiki/15_puzzle">Wikipedia page</a>)
+on a canvas of size 840x840 pixels.
+You will use the <a href="./graphics.py">graphics.py</a> package to implement the
+puzzle. The package can be installed using the command:
+<pre>
+$ pip3 install graphics.py
+or
+$ pip install graphics.py
+</pre>
+The documentation for this package is available at 
+<P><a href="../graphics.html">graphics.html</a> (or <a href="../zellegraphics.pdf">graphics.pdf</a> - this contains Image object).
+<!--a href="https://mcsp.wartburg.edu/zelle/python/">John Zelle Python Book</ai-->
+
+<P>
+Upon running the program on the terminal:
+<pre>
+$ python3 Fifteen.py 
+</pre>
+a pop-up window should open up that displays the initial configuration of the puzzle.
+Here is an example of the initial configuration:
+<P>
+<img src="./initial.png" width="200" height="200" />
+<P>
+The initial configuration willl be obtained by using a random-number generator,
+resulting in a different configuration each time you run the program.
+
+<P> You will need 17 different image files (<a href="./gifs/">gifs</a>) for this project.
+Please download these files using the .zip version.
+
+<P> The user interacts with the window by clicking on a tile. Clicking a tile neighboring
+the blank tile should swap the two tiles, thereby moving the non-blank tile into the spot 
+occupied by the blank tile. Clicking a tile not neighboring the blank tile should do nothing.
+Here are snapshots of the window shown after each of the first 3 clicks:
+<P>
+<img src="./win1.png" width="200" height="200">
+<img src="./win2.png" width="200" height="200">
+<img src="./win3.png" width="200" height="200">
+
+<P> The user solves the puzzle by clicking away until the following final configuration is achieved:
+<P> <img src="./final.png" width="200" height="200">
+
+<P> As soon as the user solves the puzzle, the window should be transformed to the
+following using the <tt>win.gif</tt> file:
+<P> <img src="./win.png" width="200" height="200">
+<P> A click on the "You Won" window should terminate the program.
+
+<h4>Folder structure for your project:</h4>
+<pre>
+$ ls
+Fifteen.py	gifs
+ASCSC1PP629W1:Puzzle raj$ ls gifs
+1.gif		12.gif		15.gif		4.gif		7.gif		blank.gif
+10.gif		13.gif		2.gif		5.gif		8.gif		win.gif
+11.gif		14.gif		3.gif		6.gif		9.gif
+$
+</pre>
+You can zip/tar all the files for the project by using the following command on the Terminal on MacOS or Linux:
+<pre>
+$ zip -r fifteen.zip *
+$ tar cvf fifteen.tar *
+</pre>
+If you are on Windows, please figure this out yourself (-:
+
+<h4>What to submit?</h4>
+<P> <tt>fifteen.zip</tt>, a zip file containing Fifteen.py and the 17 gif files used in the program.
+The 17 gif files should be inside a subfolder called gifs.
+
+</div>
+</div>
+   
+</body>
+</html>

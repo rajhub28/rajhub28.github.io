@@ -1,0 +1,50 @@
+<pre>
+Python
+
+def ternarySearch(target, nums, left, right):
+
+  if left &gt; right:
+    return -1
+
+  mid1 = left  + (right-left+1) // 3
+  mid2 = right - (right-left+1) // 3
+
+  if nums[mid1] == target:
+    return mid1
+
+  if nums[mid2] == target:
+    return mid2
+
+  if target &gt; nums[mid1]:
+    # target must be on the left segment
+    return ternarySearch(target,nums,left,mid1-1)
+
+  if target &lt; nums[mid1] and target &gt; nums[mid2]:
+    # target must be on the middle segment
+    return ternarySearch(target,nums,mid1+1,mid2-1)
+
+  # target must be on the right segment
+  return ternarySearch(target,nums,mid2+1,right)
+
+Haskell
+
+ternarySearch :: Int -&gt; [Int] -&gt; Int -&gt; Int -&gt; Int
+ternarySearch x xs left right
+  | left &gt; right        = -1
+  | ((xs !! mid1) == x) = mid1
+  | ((xs !! mid2) == x) = mid2
+  | (x &gt; (xs !! mid1))  = ternarySearch x xs left (mid1 - 1)
+  | (x &lt; (xs !! mid2))  = ternarySearch x xs (mid2 + 1) right
+  | otherwise           = ternarySearch x xs (mid1 + 1) (mid2 - 1)
+  where 
+    mid1 = left + div (right - left + 1) 3
+    mid2 = right - div (right - left + 1) 3
+
+-- ghci&gt; ternarySearch 11 [100,99,98,87,76,54,43,42,41,33,22,11,10,9] 0 13
+-- 11
+-- ghci&gt; ternarySearch 76 [100,99,98,87,76,54,43,42,41,33,22,11,10,9] 0 13
+-- 4
+-- ghci&gt; ternarySearch 77 [100,99,98,87,76,54,43,42,41,33,22,11,10,9] 0 13
+-- -1
+-- ghci&gt;
+</pre>

@@ -1,0 +1,222 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://tinman.cs.gsu.edu/~raj/my.css">
+<title>CSC 1302 Honors Principles of Computer Science II - Spring 2025</title>
+</head>
+
+<body>
+
+<div id="page">
+<div id="main-col">
+
+<div class="section">
+<h2>Programming Assignment 4 (Rename, Times, Project, Select, and Join)</h2>
+</div>
+
+<div class="section">
+Complete the implementations of the RENAME, TIMES, PROJECT, SELECT, and JOIN relational
+algebra operations. Use the <a href="./files/">driver files</a> for testing and <a href="./runs.html">runs.html</a> for verifying.
+<P>The method signatures and pseudo-code are given below:
+<h3>RENAME</h3>
+
+<pre>
+## (Relation.py) Rename Operator:
+## The rename method takes as parameter a list of new column names, cnames, 
+## and returns a new relation object that contains the same set of tuples, but with
+## new columns names. We can assume that the size of cnames is same as size of self.attributes
+def rename(self,cnames):
+  Copy all column names from cnames and domains from self.attributes into new_attrs
+  Construct new Relation object, rel using new_attrs  (you may leave rname blank)
+  for each tuple in self.table:
+    clone the tuple and add to rel.table
+  return rel
+</pre>
+
+<h3>TIMES</h3>
+
+<pre>
+## (Tuple.py):
+## This method combines two tuples into one and assigns a new schema to the 
+## result tuple; the method returns the new tuple
+## e.g. t1 = &lt;"jones",20,200&gt; on attrs1 = [("A","VARCHAR"),("B","INTEGER"),("C","INTEGER")] and 
+##      t2 = &lt;1,2,2.5&gt; on attr2 = [("B","INTEGER"),("C","INTEGER"),("D","DECIMAL")]
+## then t1.concatenate(t2,attr) will be &lt;"jones",20,200,1,2,2.5&gt; on given attr = 
+## [("A","VARCHAR"),("R1.B","INTEGER"),("R1.C","INTEGER"),("R2.B","INTEGER"),("R2.C","INTEGER"),("D","DECIMAL")]
+def concatenate(self, t, attr):
+  Construct new Tuple object, tup, on schema attr
+  for each component in the "self" tuple:
+    add the component to tup
+  for each component in the Tuple t:
+    add the component to tup
+  return tup
+
+## (Relation.py) Times Operator:
+## The times method returns the cartesian product of two relations.
+## As an example, let R1 and R2 be the following two relations:
+## R1(A:VARCHAR, B:INTEGER, C:INTEGER) and R2(B:INTEGER, C:INTEGER, D:DECIMAL)
+## and let R1 contain the tuples {&lt;"jones",20,200&gt;, &lt;"smith",30,300&gt;} and
+## let R2 contain the tuples {&lt;1,2,2.5&gt;, &lt;100,200,3.86&gt;}
+## The R1 times R2 would have the schema 
+## R1_TIMES_R2(A:VARCHAR, R1.B:INTEGER, R1.C:INTEGER, R2.B:INTEGER, R2.C:INTEGER, D:DECIMAL)
+## and the tuples: {&lt;"jones",20,200,1,2,2.5&gt;, &lt;"jones",20,200,100,200,3.86&gt;,
+##                  &lt;"smith",30,300,1,2,2.5&gt;, &lt;"smith",30,300,100,200,3.86&gt;}
+## Notice the tuples in the output are formed by combining tuples in the
+## input relations in all possible ways, maintaining the order of columns
+def times(self,r2):
+  Construct new empty attrs
+  Copy all column names and domains from self.attributes to attrs, renaming any attribute that
+     also appears in r2.attributes
+  Copy all column names and domains from r2.attributes to attrs, renaming any attribute that
+     also appears in self.attributes
+  Construct new Relation object, rel 
+  Using nested for-loops, get tuple t1 from self.table and t2 from r2.table and
+    concatenate t1 and t2 using the method written earlier; Add the concatenated tuple to rel
+  return rel
+</pre>
+
+<h3>PROJECT</h3>
+
+<pre>
+## (Tuple.py):
+## This method takes as input a list of column names, each of which
+## belongs to self.attributes, and returns a new tuple with only those
+## components that correspond to the column names in cnames.
+def project(self,cnames):
+  Create attrs with cnames and corresponding domains 
+  Create a new Tuple object, tup
+  for each column name in cnames:
+    add corresponding component of self.tuple to tup
+  return tup
+
+## (Relation.py) Project Operator:
+## This methods takes as input a list of column names, each of which
+## belonging to self.attributes, and returns a relation whose tuples are
+## formed by projecting the columns from cnames.
+## Example: R(A:INTEGER, B:INTEGER, C:DECIMAL) with tuples
+## {(10,20,3.5),(11,22,7.8),(10,25,3.5)}
+## Then, with cnames = ["A","C"], the output relation should
+## have schema (A:INTEGER, C:DECIMAL) and tuples
+## {(10,3.5),(11,7.8)}
+## Note that after projection one may get duplicate tuples, which should
+## be removed.
+def project(self,cnames):
+  Create new attrs from cnames and corresponding domains
+  Create a new Relation object, rel
+  for each tuple in self.table:
+    call the project() method of Tuple class and get a new tuple
+    add the new tuple to rel
+  Remove duplicates from rel
+  return rel
+</pre>
+
+<h3>SELECT</h3>
+
+<pre>
+# (Tuple.py):
+# This method takes a comparison condition in the 5 parameters and
+# returns True if the tuple satisfies the condition and False otherwise.
+#
+# The comparison condition is coded in the 5 parameters as follows:
+#
+# lopType/ropType can take one of three values: "col", "num", "str"
+# indicating that the operand is either a name of a column, or a number,
+# or a string respectively.
+#
+# lopValue/ropValue will contain the name of the column if the lopType/ropType
+# is "col" and will contain a numeric value if lopType/ropType is "num" and
+# will contain a string value if lopType/ropType is "str".
+#
+# comparison will have one of six values: "&lt; "&lt;=","=","&gt;","&gt;=", or "&lt;&gt;"
+#
+# As an example, if we want to express the comparison, SNAME = "Jones", the 5 parameters will be:
+# lopType="col", lopValue="SNAME", comparison="=", ropType="str", ropValue="Jones"
+#
+# As another example, if we want to express the condition GPA &gt; 3.0, the 5 parameters will be:
+# lopType="col", lopValue="GPA", comparison="&gt;", ropType="num", ropValue="3.0"
+#
+def select(self,lopType,lopValue,comparison,ropType,ropValue):
+  # Top level cases to consider:
+  #
+  # lopType="num" and ropType="num"
+  # lopType="str" and ropType="str"
+  # lopType="col" and ropType="num"
+  # lopType="col" and ropType="str"
+  # lopType="num" and ropType="col"
+  # lopType="str" and ropType="col"
+  # lopType="col" and ropType="col"
+	pass
+
+# (Relation.py) Select Operator:
+# This method takes as input a comparison condition as explained earlier and returns
+# a new relation that contains only those tuples that satisfies the comparison condition.
+def select(self,lopType,lopValue,comparison,ropType,ropValue):
+	pass
+</pre>
+
+
+<h3>JOIN</h3>
+
+<pre>
+  ## (Tuple.py):
+  ## This method attempts to construct a "joined" tuple out of this.tuple and t2.tuple
+  ## If the two tuples can join, the joined tuple is returned; otherwise None is returned.
+  ## Let ENROLL(SID:INTEGER,SNAME:VARCHAR,PHONE:INTEGER,MAJOR:VARCHAR,GPA:DECIMAL)
+  ## and STUDENT(SID:INTEGER,COURSE:VARCHAR,GRADE:VARCHAR)
+  ## let this.tuple = 1111:Robert Adams:1234:Computer Science:4.0:
+  ## and   t2.tuple = 1111:Database Systems:A:
+  ## Then, joined tuple will be: 1111:Robert Adams:1234:Computer Science:4.0:Database Systems:A:
+  ## As another example,
+  ## let this.tuple = 1111:Robert Adams:1234:Computer Science:4.0:
+  ## and   t2.tuple = 1114:Database Systems:B:
+  ## These two tuples do not join because in the first tuple SID=1111 and in the second
+  ## tuple SID=1114; So, the result should be None
+  def join(self,t2):
+    ## collect information about "common" attributes and their positions in the respective lists.
+    ## Verify if the two tuples can join; if not return None
+    ## If tuples can join then produce the joined tuple and return it.
+	pass
+
+  ## (Relation.py) Join Operator:
+  ## The join operator combines two relations into one based on common columns in the two relations
+  ## The schema of the join relation contains all columns of the first relation followed by all columns
+  ## of the second relation, somewhat like the times operator, except that the common columns appear only
+  ## once in the join relation (keep first occurrence)
+  ## Two tuples join with each other only if they have the same values under the common columns.
+  def join(self,r2):
+    ## Construct empty attrs
+    ## copy all attributes and corresponding domains from this.attributess to attrs
+    ## copy attributes and corresponding domains from r2.attributes only if they do not appear
+    ##    in this.attributes
+    ## Construct new relation object, rel
+    ## Using nested for loops obtain cloned tuple t1 from this.table and cloned tuple t2 from r2.table
+    ##   and try to join these two tuples; if result is not None, add to rel
+    ## return rel
+	pass
+</pre>
+
+</div>
+
+<div class="section">
+<h3>What to Submit?</h3>
+
+A zip or tar archive, <tt>ra.zip</tt> or <tt> ra.tar</tt> containing all files and directories as
+shown below:
+<pre>
+$ ls
+Database.py
+Driver5_RenameTimes.py
+Driver6_Project.py
+Driver7_Select.py
+Driver8_JoinA.py
+Driver8_JoinB.py
+Relation.py
+Tuple.py
+$
+</pre>
+</div>
+
+</div>
+</div>
+   
+</body>
+</html>
